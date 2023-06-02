@@ -1,176 +1,118 @@
-import * as React from "react"
+import * as React from "react";
+import { StaticImage } from "gatsby-plugin-image";
+import styled from "styled-components";
 
-const pageStyles = {
-  color: "#232129",
-  padding: 96,
-  fontFamily: "-apple-system, Roboto, sans-serif, serif",
-}
-const headingStyles = {
-  marginTop: 0,
-  marginBottom: 64,
-  maxWidth: 320,
-}
-const headingAccentStyles = {
-  color: "#663399",
-}
-const paragraphStyles = {
-  marginBottom: 48,
-}
-const codeStyles = {
-  color: "#8A6534",
-  padding: 4,
-  backgroundColor: "#FFF4DB",
-  fontSize: "1.25rem",
-  borderRadius: 4,
-}
-const listStyles = {
-  marginBottom: 96,
-  paddingLeft: 0,
-}
-const listItemStyles = {
-  fontWeight: 300,
-  fontSize: 24,
-  maxWidth: 560,
-  marginBottom: 30,
-}
+const HomePageStyles = styled.div`
+  div.hero {
+    position: relative;
+    h1 {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      color: var(--linen);
+      display: flex;
+      align-items: center;
+      z-index: 1;
+      letter-spacing: 2px;
+      font-size: calc(3.5vw + 2.5rem);
+      &:first-child {
+        left: 6rem;
+        bottom: 8.5vw;
+      }
+      &:nth-child(2) {
+        justify-content: center;
+        right: 55%;
+      }
+    }
+  }
 
-const linkStyle = {
-  color: "#8954A8",
-  fontWeight: "bold",
-  fontSize: 16,
-  verticalAlign: "5%",
-}
+  .hero-body {
+    margin: 10rem 6rem;
+    display: flex;
+    justify-content: space-around;
 
-const docLinkStyle = {
-  ...linkStyle,
-  listStyleType: "none",
-  marginBottom: 24,
-}
+    h2 {
+      text-transform: uppercase;
+    }
 
-const descriptionStyle = {
-  color: "#232129",
-  fontSize: 14,
-  marginTop: 10,
-  marginBottom: 0,
-  lineHeight: 1.25,
-}
+    .gatsby-image-wrapper {
+      width: 25%;
+    }
 
-const docLink = {
-  text: "Documentation",
-  url: "https://www.gatsbyjs.com/docs/",
-  color: "#8954A8",
-}
+    div {
+      width: calc(20px + 20vw);
+    }
+  }
+`;
 
-const badgeStyle = {
-  color: "#fff",
-  backgroundColor: "#088413",
-  border: "1px solid #088413",
-  fontSize: 11,
-  fontWeight: "bold",
-  letterSpacing: 1,
-  borderRadius: 4,
-  padding: "4px 6px",
-  display: "inline-block",
-  position: "relative",
-  top: -2,
-  marginLeft: 10,
-  lineHeight: 1,
-}
-
-const links = [
-  {
-    text: "Tutorial",
-    url: "https://www.gatsbyjs.com/docs/tutorial/getting-started/",
-    description:
-      "A great place to get started if you're new to web development. Designed to guide you through setting up your first Gatsby site.",
-    color: "#E95800",
-  },
-  {
-    text: "How to Guides",
-    url: "https://www.gatsbyjs.com/docs/how-to/",
-    description:
-      "Practical step-by-step guides to help you achieve a specific goal. Most useful when you're trying to get something done.",
-    color: "#1099A8",
-  },
-  {
-    text: "Reference Guides",
-    url: "https://www.gatsbyjs.com/docs/reference/",
-    description:
-      "Nitty-gritty technical descriptions of how Gatsby works. Most useful when you need detailed information about Gatsby's APIs.",
-    color: "#BC027F",
-  },
-  {
-    text: "Conceptual Guides",
-    url: "https://www.gatsbyjs.com/docs/conceptual/",
-    description:
-      "Big-picture explanations of higher-level Gatsby concepts. Most useful for building understanding of a particular topic.",
-    color: "#0D96F2",
-  },
-  {
-    text: "Plugin Library",
-    url: "https://www.gatsbyjs.com/plugins",
-    description:
-      "Add functionality and customize your Gatsby site or app with thousands of plugins built by our amazing developer community.",
-    color: "#8EB814",
-  },
-  {
-    text: "Build and Host",
-    url: "https://www.gatsbyjs.com/cloud",
-    badge: true,
-    description:
-      "Now you’re ready to show the world! Give your Gatsby site superpowers: Build and host on Gatsby Cloud. Get started for free!",
-    color: "#663399",
-  },
-]
-
-const IndexPage = () => {
+const HomePage = () => {
   return (
-    <main style={pageStyles}>
-      <h1 style={headingStyles}>
-        Congratulations
-        <br />
-        <span style={headingAccentStyles}>— you just made a Gatsby site! 🎉🎉🎉</span>
-      </h1>
-      <p style={paragraphStyles}>
-        Edit <code style={codeStyles}>src/pages/index.js</code> to see this page
-        update in real-time. 😎
-      </p>
-      <ul style={listStyles}>
-        <li style={docLinkStyle}>
-          <a
-            style={linkStyle}
-            href={`${docLink.url}?utm_source=starter&utm_medium=start-page&utm_campaign=minimal-starter`}
-          >
-            {docLink.text}
-          </a>
-        </li>
-        {links.map(link => (
-          <li key={link.url} style={{ ...listItemStyles, color: link.color }}>
-            <span>
-              <a
-                style={linkStyle}
-                href={`${link.url}?utm_source=starter&utm_medium=start-page&utm_campaign=minimal-starter`}
-              >
-                {link.text}
-              </a>
-              {link.badge && (
-                <span style={badgeStyle} aria-label="New Badge">
-                  NEW!
-                </span>
-              )}
-              <p style={descriptionStyle}>{link.description}</p>
-            </span>
-          </li>
-        ))}
-      </ul>
-      <img
-        alt="Gatsby G Logo"
-        src="data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2a10 10 0 110 20 10 10 0 010-20zm0 2c-3.73 0-6.86 2.55-7.75 6L14 19.75c3.45-.89 6-4.02 6-7.75h-5.25v1.5h3.45a6.37 6.37 0 01-3.89 4.44L6.06 9.69C7 7.31 9.3 5.63 12 5.63c2.13 0 4 1.04 5.18 2.65l1.23-1.06A7.959 7.959 0 0012 4zm-8 8a8 8 0 008 8c.04 0 .09 0-8-8z' fill='%23639'/%3E%3C/svg%3E"
-      />
-    </main>
-  )
-}
+    <HomePageStyles>
+      <div className="hero">
+        <h1>Historical</h1>
+        <h1>Bows</h1>
+        <StaticImage
+          style={{ height: "100vh" }}
+          alt="A viola bow"
+          src="../images/hero.jpg"
+        />
+      </div>
+      <div className="hero-body">
+        <StaticImage src="../images/old_headshot.jpeg" alt="" />
+        <div>
+          <h2>Hello, I'm Stephen</h2>
+          <p>
+            For over 40 years I have studied surviving historical bow examples,
+            sometimes called original or period bows. I reproduce them with
+            careful attention to the crafting techniques and materials employed.
+            When making early model bows, I make close copies, but take account
+            of the natural variation found in extant examples of a particular
+            model or historical variation within the work of a known maker.
+          </p>
+        </div>
+      </div>
+      <div className="hero-body">
+        <StaticImage src="../images/old_bows_tip.jpeg" alt="" />
+        <div>
+          <p>
+            On these pages you can see near life-size photographs of Baroque
+            Bows, including long and short "sonata bows" and special bows for
+            viola d'amore, viol and bass (violone). See also Classical Bows,
+            (sometimes called Transitional Bows) my reproductions of the work of
+            Meauchand and the early work of Tourte and his contemporaries from
+            France; members of the Dodd family and the Betts shop in England. I
+            have also found exquisite early examples of Italian and German
+            classical bows, previously unidentified. Currently I am making a few
+            very special Modern bows, designed after the later work of Tourte,
+            Lafleur and Eury, and finally some stronger Peccatte models.
+          </p>
+        </div>
+      </div>
+      <div className="hero-body">
+        <div>
+          <p>
+            Working with bows made before 1800 requires research and extensive
+            study. I have visited many museums and private collections, and use
+            well seasoned wood species found in the original examples. I have
+            lectured on the history of bows and bowmaking, and my collection of
+            woods used historically for bowmaking is on display at conventions
+            and workshops.
+          </p>
+          <p>
+            You are encouraged to peruse the photographs and explore the links
+            to baroque bow and instrument makers and related craftsmen. I
+            appreciate comments, and questions are always welcome. See my
+            contact page or e-mail me at:
+          </p>
+        </div>
+        <StaticImage src="../images/old_bows_end.jpeg" alt="" />
+      </div>
+    </HomePageStyles>
+  );
+};
 
-export default IndexPage
+export const Head = () => <title>Home</title>;
 
-export const Head = () => <title>Home Page</title>
+export default HomePage;
