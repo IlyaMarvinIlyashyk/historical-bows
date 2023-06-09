@@ -113,6 +113,8 @@ const HomePage = () => {
   );
 };
 
-export const Head = () => <title>Home</title>;
+export const Head = () => (
+  <title>Home | Historical Bows | Stephen Marvin</title>
+);
 
 export default HomePage;

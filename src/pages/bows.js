@@ -8,6 +8,8 @@ const BowsPage = () => {
   );
 };
 
-export const Head = () => <title>Bows</title>;
+export const Head = () => (
+  <title>Bows | Historical Bows | Stephen Marvin</title>
+);
 
 export default BowsPage;

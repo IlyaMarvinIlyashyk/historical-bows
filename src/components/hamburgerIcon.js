@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const MenuIconWrapper = styled.div`
@@ -27,27 +27,30 @@ const MenuIconWrapper = styled.div`
     transition: 0.25s ease-in-out;
 
     &:nth-child(1) {
-      top: ${(props) => (props.open ? "9px" : "0px")};
-      transform: ${(props) => (props.open ? "rotate(135deg)" : "none")};
+      top: ${(props) => (props.hamburgerOpen ? "9px" : "0px")};
+      transform: ${(props) =>
+        props.hamburgerOpen ? "rotate(135deg)" : "none"};
     }
 
     &:nth-child(2) {
       top: 9px;
-      opacity: ${(props) => (props.open ? "0" : "1")};
+      opacity: ${(props) => (props.hamburgerOpen ? "0" : "1")};
     }
 
     &:nth-child(3) {
-      top: ${(props) => (props.open ? "9px" : "18px")};
-      transform: ${(props) => (props.open ? "rotate(-135deg)" : "none")};
+      top: ${(props) => (props.hamburgerOpen ? "9px" : "18px")};
+      transform: ${(props) =>
+        props.hamburgerOpen ? "rotate(-135deg)" : "none"};
     }
   }
 `;
 
-const HamburgerIcon = () => {
-  const [open, setOpen] = useState(false);
-
+const HamburgerIcon = ({ hamburgerOpen, setHamburgerOpen }) => {
   return (
-    <MenuIconWrapper open={open} onClick={() => setOpen(!open)}>
+    <MenuIconWrapper
+      hamburgerOpen={hamburgerOpen}
+      onClick={() => setHamburgerOpen(!hamburgerOpen)}
+    >
       <span></span>
       <span></span>
       <span></span>

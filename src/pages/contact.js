@@ -8,6 +8,8 @@ const ContactPage = () => {
   );
 };
 
-export const Head = () => <title>Contact</title>;
+export const Head = () => (
+  <title>Contact | Historical Bows | Stephen Marvin</title>
+);
 
 export default ContactPage;

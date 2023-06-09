@@ -8,6 +8,8 @@ const PricesPage = () => {
   );
 };
 
-export const Head = () => <title>Prices</title>;
+export const Head = () => (
+  <title>Prices | Historical Bows | Stephen Marvin</title>
+);
 
 export default PricesPage;

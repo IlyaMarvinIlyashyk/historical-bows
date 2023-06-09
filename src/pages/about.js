@@ -24,6 +24,8 @@ const AboutPage = () => {
   );
 };
 
-export const Head = () => <title>About</title>;
+export const Head = () => (
+  <title>About | Historical Bows | Stephen Marvin</title>
+);
 
 export default AboutPage;

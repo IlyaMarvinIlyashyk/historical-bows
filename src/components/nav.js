@@ -2,11 +2,13 @@ import { Link } from "gatsby";
 import React, { useState, useCallback, useEffect, useRef } from "react";
 import HamburgerIcon from "./hamburgerIcon";
 import styled from "styled-components";
+import ExpandIcon from "./expandIcon";
 
 const navItems = [
   {
     name: "about",
     sublinks: [
+      { label: "All about", link: "/about", mobileOnly: true },
       { label: "Biography", link: "/about/#biography" },
       { label: "References", link: "/about/#refereces" },
       { label: "Choosing a Bow", link: "/about/#choosing-a-bow" },
@@ -18,6 +20,7 @@ const navItems = [
   {
     name: "materials",
     sublinks: [
+      { label: "All Materials", link: "/materials", mobileOnly: true },
       { label: "Swartzia", link: "/materials/#swartzia" },
       { label: "Satiné-Cacique", link: "/materials/#satiné-cacique" },
       { label: "Snakewood", link: "/materials/#snakewood" },
@@ -29,6 +32,7 @@ const navItems = [
   {
     name: "bows",
     sublinks: [
+      { label: "All Bows", link: "/bows", mobileOnly: true },
       { label: "Baroque", link: "/bows/#baroque" },
       { label: "Classical", link: "/bows/#classical" },
       { label: "Modern", link: "/bows/#modern" },
@@ -46,36 +50,26 @@ const NavWrapper = styled.nav`
   position: fixed;
   z-index: 10;
   width: calc(100% - 8rem);
-  max-width: calc(1980px - 12rem);
+  max-width: calc(1980px - 8rem);
   text-transform: lowercase;
   align-items: center;
   transition: height 0.2s ease, opacity 0.2s ease;
   border-bottom: 1px solid black;
-
-  /* @media (max-width: 1000px) {
-    height: 100vh;
-    align-items: flex-start;
-
-    ul {
-      position: absolute;
-      flex-direction: column;
-    }
-  } */
 
   &.nav-hide {
     height: 0;
     opacity: 0;
   }
 
-  .name-link {
-    padding: 0 2rem;
-    font-family: "Seaweed Script";
-    font-size: 3rem;
-    text-transform: none;
+  &.hamburger-open {
+    height: 100%;
+
+    ul {
+      display: flex;
+    }
   }
 
-  ul,
-  .name-link {
+  ul {
     display: flex;
     justify-content: space-around;
     margin: 0;
@@ -86,35 +80,21 @@ const NavWrapper = styled.nav`
     }
   }
 
-  .second-nav {
-    align-items: center;
+  .name-hamburger-wrapper {
     display: flex;
-    justify-content: flex-end;
-    left: 0;
-    position: absolute;
-    right: 0;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.2s ease;
-    top: 100%;
-    padding: 0 6rem;
-    height: 8rem;
-    z-index: 2;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 6rem;
+    border-bottom: ${(props) =>
+      props.hamburgerOpen ? "1px solid black" : "none"};
+  }
 
-    > li {
-      padding: 4.5rem 2rem;
-      z-index: 2;
-    }
-
-    &.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    &.not-active {
-      opacity: 0;
-      visibility: hidden;
-    }
+  .name-link {
+    padding: 0 2rem;
+    font-family: "Seaweed Script";
+    font-size: clamp(2.5rem, 2vw, 4rem);
+    text-transform: none;
   }
 
   .second-nav-wrapper {
@@ -146,7 +126,35 @@ const NavWrapper = styled.nav`
     }
   }
 
-  a:not(.name-link) {
+  .second-nav {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    left: 0;
+    position: absolute;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease;
+    top: 100%;
+    padding: 0 6rem;
+    height: 8rem;
+    z-index: 2;
+    opacity: 0;
+    visibility: hidden;
+
+    > li {
+      padding: 4.5rem 2rem;
+      z-index: 2;
+    }
+
+    &.active {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  a:not(.name-hamuburger-wrapper .name-link) {
     position: relative;
     padding: 2rem 0;
     letter-spacing: 1.5px;
@@ -170,16 +178,140 @@ const NavWrapper = styled.nav`
       transform: scaleX(1);
     }
   }
+
+  @media (max-width: 1000px) {
+    height: 6rem;
+    align-items: flex-start;
+    overflow: auto;
+
+    ul {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 6rem;
+      align-items: flex-start;
+      padding: 0;
+      font-size: 4rem;
+      width: calc(100% - 4rem);
+
+      > li {
+        padding: 1.5rem 0rem;
+        width: 100%;
+      }
+    }
+
+    a.name-link.name-link {
+      padding: 0;
+    }
+
+    .second-nav-wrapper {
+      flex-direction: column;
+
+      > div {
+        padding: 1.5rem 0rem;
+        z-index: 1;
+        width: calc(100% - 4rem);
+        position: relative;
+
+        .expand-icon-wrapper {
+          position: absolute;
+          right: 0;
+          top: 50%;
+        }
+      }
+
+      &::after {
+        display: none;
+      }
+    }
+
+    .second-nav {
+      padding: 0;
+      font-size: 2rem;
+      top: 0;
+      height: 0;
+      align-items: flex-start;
+      width: calc(100vw - 4rem);
+      height: 100%;
+      position: absolute;
+
+      > li {
+        padding: 1.5rem 0rem;
+        z-index: 2;
+      }
+
+      &.active {
+        position: relative;
+
+        + .expand-icon-wrapper {
+          top: 38px;
+
+          div > :nth-child(2) {
+            transform: rotate(0deg);
+          }
+        }
+      }
+    }
+  }
 `;
 
 const Nav = () => {
-  const [activeMenu, setActiveMenu] = useState(null);
+  const [activeSubMenuName, setActiveSubMenuName] = useState(null);
   const [lastScrollTop, setLastScrollTop] = useState(0);
+  const [hamburgerOpen, setHamburgerOpen] = useState(false);
+  const [isHamburgerBreakpoint, setIsHamburgerBreakpoint] = useState(false);
   const navRef = useRef();
 
-  const handleMenuInteraction = useCallback((menuName, isActive) => {
-    setActiveMenu(isActive ? menuName : null);
-  }, []);
+  useEffect(() => {
+    document.body.style.overflow = hamburgerOpen ? "hidden" : "unset";
+  }, [hamburgerOpen]);
+
+  useEffect(() => {
+    const checkWindowWidth = () => {
+      window.innerWidth < 1000
+        ? setIsHamburgerBreakpoint(true)
+        : setIsHamburgerBreakpoint(false);
+    };
+
+    checkWindowWidth();
+
+    window.addEventListener("resize", (e) => {
+      if (e.target.outerWidth > 1000) {
+        setHamburgerOpen(false);
+        setActiveSubMenuName(null);
+        setIsHamburgerBreakpoint(false);
+      } else {
+        setIsHamburgerBreakpoint(true);
+      }
+    });
+
+    return () => {
+      window.removeEventListener("resize", checkWindowWidth);
+    };
+  }, [isHamburgerBreakpoint]);
+
+  const handleMenuInteraction = useCallback(
+    (menuName, isActive) => {
+      if (!isHamburgerBreakpoint) {
+        setActiveSubMenuName(isActive ? menuName : null);
+      }
+    },
+    [isHamburgerBreakpoint]
+  );
+
+  const handleClickMenuInteraction = useCallback(
+    (menuName, e) => {
+      if (isHamburgerBreakpoint) {
+        if (activeSubMenuName === null || activeSubMenuName !== menuName) {
+          setActiveSubMenuName(menuName);
+        } else {
+          setActiveSubMenuName(null);
+        }
+      }
+    },
+    [isHamburgerBreakpoint, activeSubMenuName]
+  );
+
   const handleScroll = useCallback(() => {
     const offset = window.scrollY;
     const navbar = navRef.current;
@@ -210,17 +342,34 @@ const Nav = () => {
     };
   }, [handleScroll]);
 
-  const handleBlur = useCallback((menuName, e) => {
-    if (!e.currentTarget.contains(e.relatedTarget)) {
-      setActiveMenu(null);
-    }
-  }, []);
+  const handleBlur = useCallback(
+    (menuName, e) => {
+      if (
+        !e.currentTarget.contains(e.relatedTarget) &&
+        !isHamburgerBreakpoint
+      ) {
+        setActiveSubMenuName(null);
+      }
+    },
+    [isHamburgerBreakpoint]
+  );
 
   return (
-    <NavWrapper ref={navRef}>
-      <Link className="name-link" to="/">
-        Stephen Marvin
-      </Link>
+    <NavWrapper
+      ref={navRef}
+      className={hamburgerOpen && `hamburger-open`}
+      hamburgerOpen={hamburgerOpen}
+    >
+      <span className={isHamburgerBreakpoint && "name-hamburger-wrapper"}>
+        <Link className="name-link" to="/">
+          Stephen Marvin
+        </Link>
+        <HamburgerIcon
+          setHamburgerOpen={setHamburgerOpen}
+          hamburgerOpen={hamburgerOpen}
+          className="hamburger-icon"
+        />
+      </span>
       <ul>
         <li>
           <Link to="/">Home</Link>
@@ -235,25 +384,32 @@ const Nav = () => {
               onMouseLeave={() => handleMenuInteraction(item.name, false)}
               onFocus={() => handleMenuInteraction(item.name, true)}
               onBlur={(e) => handleBlur(item.name, e)}
+              onClick={(e) => handleClickMenuInteraction(item.name, e)}
             >
               <Link
-                to={`/${item.name}`}
-                aria-expanded={activeMenu === item.name ? "true" : "false"}
+                to={isHamburgerBreakpoint ? `` : `/${item.name}`}
+                aria-expanded={
+                  activeSubMenuName === item.name ? "true" : "false"
+                }
               >
                 {item.name}
               </Link>
               <ul
                 className={`second-nav ${
-                  activeMenu === item.name ? "active" : "not-active"
+                  activeSubMenuName === item.name && "active"
                 }`}
               >
-                {item.sublinks.map((link) => (
-                  <li key={link.label}>
-                    <Link to={link.link}>{link.label}</Link>
-                  </li>
-                ))}
+                {item.sublinks
+                  .filter((link) => isHamburgerBreakpoint || !link.mobileOnly)
+                  .map((link) => (
+                    <li key={link.label}>
+                      <Link to={link.link}>{link.label}</Link>
+                    </li>
+                  ))}
               </ul>
-              <div className="second-nav-background"></div>
+              <span className="expand-icon-wrapper">
+                <ExpandIcon />
+              </span>
             </div>
           ))}
         </li>
@@ -264,7 +420,6 @@ const Nav = () => {
           <Link to="/contact">Contact</Link>
         </li>
       </ul>
-      <HamburgerIcon />
     </NavWrapper>
   );
 };

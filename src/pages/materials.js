@@ -8,6 +8,8 @@ const MaterialsPage = () => {
   );
 };
 
-export const Head = () => <title>Materials</title>;
+export const Head = () => (
+  <title>Materials | Historical Bows | Stephen Marvin</title>
+);
 
 export default MaterialsPage;
