@@ -182,7 +182,7 @@ const NavWrapper = styled.nav`
   @media (max-width: 1000px) {
     height: 6rem;
     align-items: flex-start;
-    overflow: auto;
+    overflow: ${(props) => (props.hamburgerOpen ? "auto" : "hidden")};
 
     ul {
       display: none;
@@ -200,7 +200,7 @@ const NavWrapper = styled.nav`
       }
     }
 
-    a.name-link.name-link {
+    a.name-link.name-link.name-link.name-link {
       padding: 0;
     }
 
@@ -276,7 +276,7 @@ const Nav = () => {
     checkWindowWidth();
 
     window.addEventListener("resize", (e) => {
-      if (e.target.outerWidth > 1000) {
+      if (e.target.innerWidth >= 1000) {
         setHamburgerOpen(false);
         setActiveSubMenuName(null);
         setIsHamburgerBreakpoint(false);
