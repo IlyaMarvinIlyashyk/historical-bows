@@ -106,8 +106,7 @@ const NavWrapper = styled.nav`
       z-index: 1;
     }
 
-    &::after {
-      content: "";
+    .second-nav-background {
       width: 100%;
       height: 0;
       position: absolute;
@@ -117,12 +116,11 @@ const NavWrapper = styled.nav`
       background: var(--linen);
       transition: height 0.2s ease;
       z-index: -10;
-    }
 
-    &:hover::after,
-    &:focus-within::after {
-      height: calc(8rem + 1px);
-      border-bottom: 1px solid black;
+      &.active {
+        height: calc(8rem + 1px);
+        border-bottom: 1px solid black;
+      }
     }
   }
 
@@ -219,19 +217,14 @@ const NavWrapper = styled.nav`
           top: 50%;
         }
       }
-
-      &::after {
-        display: none;
-      }
     }
 
     .second-nav {
       padding: 0;
       font-size: 2rem;
-      top: 0;
-      height: 0;
+      top: 15px;
       align-items: flex-start;
-      width: calc(100vw - 4rem);
+      width: calc(100vw - 8rem);
       height: 100%;
       position: absolute;
 
@@ -242,6 +235,9 @@ const NavWrapper = styled.nav`
 
       &.active {
         position: relative;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        padding: 1rem 0;
 
         + .expand-icon-wrapper {
           top: 38px;
@@ -412,6 +408,11 @@ const Nav = () => {
               </span>
             </div>
           ))}
+          <span
+            className={`second-nav-background ${
+              activeSubMenuName !== null && "active"
+            }`}
+          ></span>
         </li>
         <li>
           <Link to="/prices">Prices</Link>
