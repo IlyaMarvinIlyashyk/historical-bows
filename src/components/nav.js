@@ -25,7 +25,7 @@ const navItems = [
       { label: "Satiné-Cacique", link: "/materials/#satiné-cacique" },
       { label: "Snakewood", link: "/materials/#snakewood" },
       { label: "Pernambuco", link: "/materials/#pernambuco" },
-      { label: "Ebony and Ivory", link: "/materials/#ebony-and-ivory" },
+      { label: "Ebony & Ivory", link: "/materials/#ebony-and-ivory" },
       { label: "Alternatives", link: "/materials/#alternatives" },
     ],
   },
@@ -45,12 +45,12 @@ const NavWrapper = styled.nav`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 0rem 4rem;
+  padding: 0rem 6rem;
   background: var(--linen);
   position: fixed;
   z-index: 10;
-  width: calc(100% - 8rem);
-  max-width: calc(1980px - 8rem);
+  width: calc(100% - 12rem);
+  max-width: calc(1980px - 12rem);
   text-transform: lowercase;
   align-items: center;
   transition: height 0.2s ease, opacity 0.2s ease;
@@ -77,6 +77,10 @@ const NavWrapper = styled.nav`
 
     > li {
       padding: 3rem 2rem;
+
+      &:last-of-type {
+        padding-right: 0;
+      }
     }
   }
 
@@ -93,7 +97,7 @@ const NavWrapper = styled.nav`
   .name-link {
     padding: 0 2rem;
     font-family: "Seaweed Script";
-    font-size: clamp(2.5rem, 2vw, 4rem);
+    font-size: clamp(2.5rem, 2vw, 4.25rem);
     text-transform: none;
   }
 
@@ -180,6 +184,8 @@ const NavWrapper = styled.nav`
   @media (max-width: 1000px) {
     height: 6rem;
     align-items: flex-start;
+    padding: 0rem 2rem;
+    width: calc(100% - 4rem);
     overflow: ${(props) => (props.hamburgerOpen ? "auto" : "hidden")};
 
     ul {
@@ -214,14 +220,15 @@ const NavWrapper = styled.nav`
         .expand-icon-wrapper {
           position: absolute;
           right: 0;
-          top: 50%;
+          top: 30%;
+          cursor: pointer;
         }
       }
     }
 
     .second-nav {
       padding: 0;
-      font-size: 2rem;
+      font-size: 2.25rem;
       top: 15px;
       align-items: flex-start;
       width: calc(100vw - 8rem);
@@ -240,7 +247,7 @@ const NavWrapper = styled.nav`
         padding: 1rem 0;
 
         + .expand-icon-wrapper {
-          top: 38px;
+          top: 23px;
 
           div > :nth-child(2) {
             transform: rotate(0deg);
@@ -410,7 +417,7 @@ const Nav = () => {
           ))}
           <span
             className={`second-nav-background ${
-              activeSubMenuName !== null && "active"
+              activeSubMenuName !== null && !isHamburgerBreakpoint && "active"
             }`}
           ></span>
         </li>

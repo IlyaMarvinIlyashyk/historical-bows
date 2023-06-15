@@ -25,6 +25,7 @@ const MenuIconWrapper = styled.div`
     left: 0;
     transform: rotate(90deg);
     transition: 0.25s ease-in-out;
+    top: 50%;
 
     &:nth-child(1) {
       transform: rotate(0deg);
